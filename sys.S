@@ -1,12 +1,14 @@
 .intel_syntax noprefix
 
-.section .text
+
 .global _start
 
+.section .text
 _start:
 loop_start:
 
 write:
+  
   xor eax, eax 
   inc al
   inc dl
@@ -43,7 +45,6 @@ waitid:
   xor eax, eax
   mov al, 247
   xor edi, edi
-
 
   mov r10b, 10 
   syscall

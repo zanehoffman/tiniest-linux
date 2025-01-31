@@ -8,12 +8,12 @@ _start:
 loop_start:
 
 write:
-  
   xor eax, eax 
   inc al
   inc dl
   push 0x23
   mov rsi, rsp
+  # xchg rsi, rsp
   syscall
 
 read:
@@ -21,14 +21,13 @@ read:
   xor edi, edi
 
   mov rsi, rsp
-  xor edx, edx
-  dec dl
-  #mov dl, 255
+  # dl == 1 from write, so yolo
+  sub dl, 2
+  # mov dl, 255
   syscall
   dec al 
   
   movb [rsp + rax], 0
-
   mov rdi, rsp
 
 fork: 
@@ -42,12 +41,11 @@ fork:
   je execve
 
 waitid:
-  xor eax, eax
   mov al, 247
   xor edi, edi
-
   mov r10b, 10 
   syscall
+
   jmp _start
   
 execve: 

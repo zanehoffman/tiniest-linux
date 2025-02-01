@@ -47,12 +47,16 @@ program_headers_start:
 .quad 0
 .quad file_load_va
 execve:
+  mov al, 57
+  syscall
   cmp al, 0
   jne waitid
   mov al, 59
   syscall
-.quad 200
-.quad 200 
+.word 0
+.word 0
+
+.quad 0x050f3bb0
 
 read:
   xor edi, edi
@@ -70,8 +74,6 @@ fork:
   xor eax, eax
   xor edx, edx 
   xor esi, esi
-  mov al, 57
-  syscall
   jmp execve
 
 waitid:
